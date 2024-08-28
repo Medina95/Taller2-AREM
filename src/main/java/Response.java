@@ -16,10 +16,6 @@ public class Response {
         this.contentType = "text/plain";
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
     public String getContentType() {
         return contentType;
     }
@@ -32,8 +28,4 @@ public class Response {
         return codeResponse;
     }
 
-    public Object getOutputStream() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOutputStream'");
-    }
 }

@@ -29,7 +29,7 @@ public class SimpleWebServer {
      */
 
     public static void main(String[] args) {
-        staticfiles("webroot/publics");
+        staticfiles("public");
         get("/pi", (req, resp) -> {return String.valueOf(Math.PI); });
         get("/hello", (req, res) -> "Hello "+ req.getValue("name"));
         get("/suma", (req, res) -> {
@@ -69,7 +69,7 @@ public class SimpleWebServer {
 
     /**
      * Establece el directorio raíz de archivos estáticos.
-     * @param directory Nombre del directorio que el desarollador decida para poner sus archivos estaticos
+     * @param folder Nombre del directorio que el desarollador decida para poner sus archivos estaticos
      */
     public static void staticfiles(String folder) {
         WEB_ROOT = "target/classes/"+folder;

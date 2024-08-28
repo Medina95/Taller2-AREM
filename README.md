@@ -1,11 +1,10 @@
-# TALLER DISEÑO Y ESTRUCTURACIÓN DE APLICACIONES DISTRIBUIDAS EN INTERNET
+# DESARROLLO DE UN MARCO WEB PARA SERVICIOS REST Y GESTIÓN DE ARCHIVOS ESTÁTICOS
 
+Este proyecto implementa un servidor web básico en Java que maneja solicitudes RESTful y sirve archivos. El servidor es capaz de servir contenido estático desde un directorio específico procesando solicitudes get mediante funciones lambda.
 
-Este proyecto implementa un servidor web básico en Java que maneja solicitudes RESTful (GET, POST, PUT, DELETE) y sirve archivos estáticos. El servidor está diseñado para manejar múltiples conexiones de clientes simultáneamente y realizar operaciones CRUD en objetos JSON en memoria. Cada solicitud es manejada por un hilo separado (ClientHandler), permitiendo la concurrencia. El tema que se escogio para la pagina web es de dinosaurios :D. 
- ![Pagina](src/ReadmeImages/paginita.png)
 
  ## Arquitectura
- Este proyecto sigue la arquitectura cliente-servidor. Los clientes envían solicitudes HTTP al servidor, que maneja la lógica de los serviciso REST y devuelve respuestas en formato JSON. El servidor también puede servir archivos estáticos, como HTML, CSS e imágenes.
+ Este proyecto sigue la arquitectura cliente-servidor. Los clientes envían solicitudes HTTP al servidor, que maneja la lógica de los servicios REST  también retorna archivos estáticos, como HTML, CSS e imágenes a travez del directorio que se le asigne.
 
  ### componentes  
    - **Servidor** : SimpleWebServer maneja las conexiones y enruta las solicitudes a los servicios correspondientes. ClientHandler Gestiona la comunicación con el cliente, procesa la solicitud y decide si debe servir un archivo estático o delegar la solicitud a un servicio REST.
@@ -32,7 +31,7 @@ Para ejecutar este proyecto, necesitarás tener instalado:
 3. abrir la terminal de GIT --> mediante el clik derecho seleccionas Git bash here
 4. Clona el repositorio en tu máquina local:
    ```bash
-   git clone https://github.com/Medina95/Taller1_AREP.git
+   git clone https://github.com/Medina95/Taller2-AREM.git
    ```
 5. Abre el proyecto con tu IDE favorito o navega hasta el directorio del proyecto 
 6. Desde la terminal  para compilar el proyecto ejecuta:
@@ -47,19 +46,20 @@ Para ejecutar este proyecto, necesitarás tener instalado:
    ```
    Vera que el servidor esta listo y corriendo sobre el puerto 8080
 8. Puedes Ingresar desde el navegador a  la pagina:
-    http://localhost:8080/index.html
-9. Puedes interactuar con los endpoints RESTful (/api):
-   - GET = http://localhost:8080/api/dinosaurios
-   - POST= http://localhost:8080/api/dinosaurio
-   - PUT=  http://localhost:8080/api/dinosaurio/1
-   - DELETE= http://localhost:8080/api/dinosaurio/1
 
-    Utilizando herramientas como Postman, para el POST/PUT/DELETE te vas a la parte de body -> raw -> verificas el formato JSON y agregas un dino asi 
-    - {"Dinosaurio":"Brachiosaurus"}
-    ![Dinosaurio](src/ReadmeImages/image.png)
+    **Importante**: solo servira archivos del directorio especifico que hayas proporcionado en el main staticfiles("public"), por default  los archivos se guardaran en *target/classes/public*, bien puedes agregar un html o copiar algun recurso de la carpeta webroot y probarlo como el index por ejemplo.
+        http://localhost:8080/index.html
+    
+9. Puedes interactuar con los endpoints RESTful (/api) con:
+   - http://localhost:8080/api/suma?num1=2&num2=2
+   - http://localhost:8080/api/pi
+   - http://localhost:8080/api/hello?name=Revisor
+
+  
+
 ## Ejecutar las pruebas
 
-Se implementaron pruebas unitarias para los métodos de manejo de solicitudes HTTP (GET, POST, PUT, DELETE) en el servidor. Estas pruebas se realizaron utilizando JUnit y Mockito para simular las solicitudes y validar las respuestas.
+Se implementaron pruebas unitarias para los métodos de manejo de solicitudes HTTP  en el servidor. Estas pruebas se realizaron utilizando JUnit y Mockito para simular las solicitudes y validar las respuestas.
 
 Para ejecutar las pruebas:  
 1. Desde tu IDE, ejecuta las clase AppTest.java o desde la terminal ejecutas:
@@ -68,12 +68,11 @@ Para ejecutar las pruebas:
    ```
 ### Desglosar en pruebas de extremo a extremo
 
-- **Test01HandleGet**: Verifica que el método handleGet devuelve una respuesta JSON correcta para una solicitud GET y Verifica que el servidor responda con un código de estado HTTP 200 OK.
-- **Test02HandlePost**: Verifica que el método HandlePost agrege un dino y devuelva una respuesta JSON correcta para una solicitud POST y Verifica que el servidor responda con un código de estado HTTP 201 Created
-- **Test03HandlePut**: Verifica que el método HandlePut actualice un dino y devuelva una respuesta JSON correcta para una solicitud  PUT y Verifica que el servidor responda con un código de estado HTTP 200, pues devuelve los datos actualizados.
-- **Test04HandleDelete**: Verifica que el método HandleDelete elimine un dino y devuelva una respuesta JSON correcta para una solicitud  DELETE y Verifica que el servidor responda con un código de estado HTTP 200, pues devuelve los datos actualizados.
+- **testDirectoryCreate**: Prueba la creación del directorio de archivos estáticos.Configura el directorio de archivos estáticos y verifica si el directorio fue creado correctamente.
+- **testGetSuma**: Prueba el servicio de suma en el servidor web. Configura el servicio REST para la ruta "api/suma", simula una    solicitud con dos números, y verifica si el resultado de la suma es correcto.
+- **testGetSaludo**: Prueba el servicio de saludo en el servidor web. Configura el servicio REST para la ruta "api/hello", simula una solicitud con un nombre y verifica si la respuesta de saludo es correcta.
+- **testGetPI**:Prueba el servicio que devuelve el valor de Pi en el servidor web.Configura el servicio REST para la ruta "api/pi", simula una solicitud,y verifica si la respuesta es el valor correcto de Pi
 
-    ![Pagina](src/ReadmeImages/test.png)
 
 
 
