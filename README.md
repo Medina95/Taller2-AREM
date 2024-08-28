@@ -8,13 +8,11 @@ Este proyecto implementa un servidor web básico en Java que maneja solicitudes 
 
  ### componentes  
    - **Servidor** : SimpleWebServer maneja las conexiones y enruta las solicitudes a los servicios correspondientes. ClientHandler Gestiona la comunicación con el cliente, procesa la solicitud y decide si debe servir un archivo estático o delegar la solicitud a un servicio REST.
-   - **Servicios REST**: Implementados en la clase RestServiceImpl, manejan operaciones CRUD en objetos JSON.
-   - **Archivos estáticos**: Almacenados en el directorio webroot
+   - **Servicios REST**: Implementados en la clase Service.
+   - **Archivos estáticos**: Almacenados en el directorio public o el que proporcione el desarrollador
 
 
-## Primeros Pasos
-Estas instrucciones le permitirán obtener una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba. 
-
+## Cómo ejecutarlo
 
 ### Requisitos Previos
 Para ejecutar este proyecto, necesitarás tener instalado:
@@ -73,7 +71,19 @@ Para ejecutar las pruebas:
 - **testGetSaludo**: Prueba el servicio de saludo en el servidor web. Configura el servicio REST para la ruta "api/hello", simula una solicitud con un nombre y verifica si la respuesta de saludo es correcta.
 - **testGetPI**:Prueba el servicio que devuelve el valor de Pi en el servidor web.Configura el servicio REST para la ruta "api/pi", simula una solicitud,y verifica si la respuesta es el valor correcto de Pi
 
+### Ejemplo 
+ ```bash
+     @Test
+      public void testGetSaludo() throws IOException {
+         SimpleWebServer.get("/hello", (req, res) -> "Hello "+ req.getValue("name"));
 
+         when(mockRequest.getValue("name")).thenReturn("John");   // Configurar los valores esperados en la solicitud
+         Service service = SimpleWebServer.services.get("/api/hello"); // Obtener el servicio para la ruta /api/hello
+         String result = service.handleREST(mockRequest, mockResponse);// Ejecutar el servicio
+         assertEquals("Hello John", result);  // Verificar el resultado
+      }
+      
+   ```
 
 
 ## Built With
